@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <Button
+        android:id="@+id/dropbox_login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Login" />
+
+    <Button
+        android:id="@+id/upload_file"
+        android:layout_below="@+id/dropbox_login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Upload"/>
+
+    <TextView
+        android:id="@+id/tvDir"
+        android:layout_width="match_parent"
+        android:layout_below="@+id/upload_file"
+        android:layout_height="wrap_content" />
+
+    <ListView
+        android:id="@+id/lv_files"
+        android:layout_width="match_parent"
+        android:layout_below="@+id/tvDir"
+        android:layout_height="match_parent"/>
+
+
+</RelativeLayout>
