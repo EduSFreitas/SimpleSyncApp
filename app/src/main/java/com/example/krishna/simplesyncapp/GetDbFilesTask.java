@@ -19,6 +19,15 @@ public class GetDbFilesTask extends AsyncTask<Void, Void, Void> {
     private boolean isAllFiles;
     private boolean isRequiredFolders;
 
+    /**
+     * Instantiates a new Get db files task.
+     *
+     * @param dbRootPath the db root path
+     * @param dropbox the dropbox
+     * @param listener the listener
+     * @param isAllFiles the is all files
+     * @param isRequiredFolders the is required folders
+     */
     public GetDbFilesTask(String dbRootPath, DropboxAPI<?> dropbox, GetFilesListener listener, boolean isAllFiles, boolean isRequiredFolders){
         this.dbRootPath = dbRootPath;
         this.dropbox = dropbox;
@@ -45,6 +54,12 @@ public class GetDbFilesTask extends AsyncTask<Void, Void, Void> {
 
     private ArrayList<DropboxAPI.Entry> filesList = new ArrayList<>();
 
+    /**
+     * Gets list of files.
+     *
+     * @param path the path
+     * @return the list of files
+     */
     public ArrayList<DropboxAPI.Entry> getListOfFiles(String path) {
 
         filesList.clear();
@@ -77,6 +92,11 @@ public class GetDbFilesTask extends AsyncTask<Void, Void, Void> {
         return filesList;
     }
 
+    /**
+     * Gets files from folder.
+     *
+     * @param path the path
+     */
     public void getFilesFromFolder(String path) {
 
         DropboxAPI.Entry entries = null;
@@ -100,4 +120,30 @@ public class GetDbFilesTask extends AsyncTask<Void, Void, Void> {
             e.printStackTrace();
         }
     }
+
+}
+
+/**
+ * The type Sample.
+ */
+class Sample{
+    /**
+     * Gets name.
+     *
+     * @return the name
+     */
+    public int getName() {
+        return name;
+    }
+
+    /**
+     * Sets name.
+     *
+     * @param name the name
+     */
+    public void setName(int name) {
+        this.name = name;
+    }
+
+    private int name;
 }

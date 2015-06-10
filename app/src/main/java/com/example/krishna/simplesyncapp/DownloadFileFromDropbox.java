@@ -12,6 +12,7 @@ import com.dropbox.client2.exception.DropboxException;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -106,21 +107,34 @@ public class DownloadFileFromDropbox extends AsyncTask<Void, Void, Void> {
 
         destFile.getParentFile().mkdirs();
 
-        FileOutputStream mFos;
+        FileOutputStream mFos = null;
         try {
             mFos = new FileOutputStream(destFile);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
+            closeStream(mFos);
             return false;
         }
 
         try {
             dropbox.getFile(dbFilePath, null, mFos, null);
+            closeStream(mFos);
         } catch (DropboxException e) {
             e.printStackTrace();
+            closeStream(mFos);
             return false;
         }
+
         Log.d("DownloadFileFromDropbox", "downloadFile (Line:137) :" + "Successfully --> " + dbFilePath);
         return true;
+    }
+
+    private void closeStream(FileOutputStream mFos) {
+        if (mFos != null) {
+            try {
+                mFos.close();
+            } catch (IOException ioe) {
+            }
+        }
     }
 }

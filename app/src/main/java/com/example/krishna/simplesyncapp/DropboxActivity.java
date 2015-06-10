@@ -38,6 +38,7 @@ public class DropboxActivity extends Activity implements View.OnClickListener, S
     private ListView lvFileProgress;
     private ArrayList<FileItem> filesList = new ArrayList<>();
     private DBDownloadService dbService;
+    private FileProgressAdapter adapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -53,7 +54,7 @@ public class DropboxActivity extends Activity implements View.OnClickListener, S
         tvSyncLocation.setOnClickListener(this);
         lvFileProgress = (ListView) findViewById(R.id.lv_files);
 
-        FileProgressAdapter adapter = new FileProgressAdapter(this, getListOfFiles(syncFilePath));
+        adapter = new FileProgressAdapter(this, getListOfFiles(syncFilePath));
         lvFileProgress.setAdapter(adapter);
 
         tvSyncLocation.setOnLongClickListener(new View.OnLongClickListener() {
@@ -92,6 +93,8 @@ public class DropboxActivity extends Activity implements View.OnClickListener, S
             if (resultCode == DirectoryChooserActivity.RESULT_CODE_DIR_SELECTED) {
                 syncFilePath = data.getStringExtra(DirectoryChooserActivity.RESULT_SELECTED_DIR);
                 tvSyncLocation.setText(syncFilePath);
+                getListOfFiles(syncFilePath);
+                adapter.notifyDataSetChanged();
             } else {
                 // Nothing selected
             }

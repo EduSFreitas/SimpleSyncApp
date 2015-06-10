@@ -13,6 +13,7 @@ import com.dropbox.client2.ProgressListener;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class UploadFileToDropbox extends AsyncTask<Void, Void, Boolean> {
@@ -140,6 +141,7 @@ public class UploadFileToDropbox extends AsyncTask<Void, Void, Boolean> {
                         updateFileProg((int) prg, pos);
                     }
                 };
+
                 dropbox.putFile(path + file.getAbsolutePath(), fileInputStream,
                         file.length(), null, false, listener);
                 updateFileProg(100, pos);
@@ -154,6 +156,12 @@ public class UploadFileToDropbox extends AsyncTask<Void, Void, Boolean> {
                     bundle.putInt(FILE_POS, pos);
                     msg.setData(bundle);
                     handler.sendMessage(msg);
+                }
+            }finally {
+                if (fileInputStream != null) {
+                    try {
+                        fileInputStream.close();
+                    } catch (IOException e) {}
                 }
             }
         }
